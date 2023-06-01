@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "simple-webapp-config"
+  labels:
+    app: "simple-webapp-config"
+spec:
+  containers:
+    - name: simple-webapp-config
+      image: "sentinelfoxinc/sf-web-app-py:v1"
+      envFrom:
+        - configMapRef:
+            name: app-config
+      ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-webapp-config-svc
+spec:
+  selector:
+    app: simple-webapp-config
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
