@@ -4,16 +4,19 @@ metadata:
   name: nginx-webapp
 spec:
   containers:
-    - name: nginx-logs
-      image: nginx
-      env:
-        - name: LOG_HANDLERS
-          value: file
-      volumeMounts:
-        - mountPath: /var/log/nginx
-          name: log-volume
+  - name: nginx-logs
+    image: nginx
+    env:
+    - name: LOG_HANDLERS
+      value: file
+    volumeMounts:
+    - mountPath: /var/log/nginx
+      name: log-volume
+
   volumes:
-    - name: log-volume
-      hostPath:
+  - name: log-volume
+    hostPath:
+      # directory location on host
       path: /Users/ganim/volumes
+      # this field is optional
       type: Directory
