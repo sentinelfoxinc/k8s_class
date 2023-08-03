@@ -1,19 +1,12 @@
 apiVersion: v1
-kind: Pod
+kind: PersistentVolume
 metadata:
-  name: nginx-webapp
+  name: pv-log
 spec:
-  containers:
-    - name: nginx-logs
-      image: nginx
-      env:
-        - name: LOG_HANDLERS
-          value: file
-      volumeMounts:
-        - mountPath: /var/log/nginx
-          name: log-volume
-  volumes:
-    - name: log-volume
-      hostPath:
-      path: /Users/ganim/volumes
-      type: Directory
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 100Mi
+  hostPath:
+    path: /pv/log
